@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Día, Mi Amor</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('Imagen de WhatsApp 2025-02-14 a las 21.06.54_353e15eb.jpg') no-repeat center center;
+            background-size: contain;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            position: relative;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+        h1 {
+            color: #ff4b5c;
+        }
+        p {
+            color: #333;
+        }
+        .heart {
+            color: red;
+            font-size: 50px;
+            animation: heartbeat 1s infinite;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        button {
+            background: #ff4b5c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #e63946;
+        }
+        .flowers {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .flower {
+            width: 50px;
+            height: 50px;
+        }
+        .video-container {
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Feliz San Valentín, Mi Amor ❤️</h1>
+        <p>Eres la persona más especial en mi vida y quiero recordarte cuánto te amo.</p>
+        <div class="heart">❤️</div>
+        <button onclick="mostrarSorpresa()">Haz clic aquí</button>
+        <p id="sorpresa" style="display:none; margin-top:10px; font-size:18px; color:#ff4b5c;"></p>
+        
+        <div class="video-container" id="video">
+            <video width="300" controls>
+                <source src="Video de WhatsApp 2025-02-14 a las 21.16.58_a61dc46d.mp4" type="video/mp4">
+                Tu navegador no soporta el video.
+            </video>
+        </div>
+    </div>
+
+    <div class="flowers">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sunflower_sky_backdrop.jpg/640px-Sunflower_sky_backdrop.jpg" alt="Girasol" class="flower">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Tulip_-_floriade_canberra.jpg/640px-Tulip_-_floriade_canberra.jpg" alt="Tulipán" class="flower">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sunflower_sky_backdrop.jpg/640px-Sunflower_sky_backdrop.jpg" alt="Girasol" class="flower">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Tulip_-_floriade_canberra.jpg/640px-Tulip_-_floriade_canberra.jpg" alt="Tulipán" class="flower">
+    </div>
+
+    <script>
+        let mensajes = [
+            "¡Te amo con todo mi corazón! 💕",
+            "Eres lo mejor que me ha pasado. ❤️",
+            "Cada día a tu lado es un regalo. 🎁",
+            "No hay nadie como tú en el mundo. 🌎",
+            "Gracias por hacerme tan feliz. 😊"
+            
+        ];
+        let indice = 0;
+
+        function mostrarSorpresa() {
+            if (indice < mensajes.length) {
+                document.getElementById("sorpresa").innerText = mensajes[indice];
+                document.getElementById("sorpresa").style.display = "block";
+                indice++;
+            } else {
+                document.getElementById("video").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
