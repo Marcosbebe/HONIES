@@ -3,313 +3,851 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sonido Star Miller - Audio, Video e Iluminación para Eventos</title>
+    <title>Sonido Star Miller - Experiencias Sonideras Inolvidables</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --color-primario: #111;
+            --color-secundario: #ff0;
+            --color-terciario: #f00;
+            --color-texto: #eee;
+            --color-fondo: #222;
+        }
+        
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
             margin-bottom: 100px;
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 0, 0.05) 0%, transparent 20%);
         }
+        
+        /* Efecto de luces de escenario */
+        .stage-lights {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .light-beam {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,0,0.2) 0%, rgba(255,255,0,0) 70%);
+            animation: lightMovement 15s infinite alternate;
+            filter: blur(30px);
+        }
+        
+        .light-beam:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, rgba(255,0,0,0) 70%);
+            animation-delay: 0s;
+        }
+        
+        .light-beam:nth-child(2) {
+            top: 60%;
+            left: 70%;
+            animation-delay: 3s;
+            animation-duration: 12s;
+        }
+        
+        .light-beam:nth-child(3) {
+            top: 30%;
+            left: 50%;
+            background: radial-gradient(circle, rgba(0,255,255,0.2) 0%, rgba(0,255,255,0) 70%);
+            animation-delay: 6s;
+            animation-duration: 18s;
+        }
+        
+        @keyframes lightMovement {
+            0% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, 30px) scale(1.2); }
+            50% { transform: translate(-30px, 60px) scale(0.8); }
+            75% { transform: translate(70px, -20px) scale(1.1); }
+            100% { transform: translate(-50px, 30px) scale(0.9); }
+        }
+        
+        /* Estructura de sonido */
+        .speaker-decoration {
+            position: absolute;
+            width: 100px;
+            height: 200px;
+            background: linear-gradient(to bottom, #333, #000);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.5);
+            z-index: -1;
+        }
+        
+        .speaker-decoration.left {
+            left: -50px;
+            top: 30%;
+            transform: perspective(500px) rotateY(20deg);
+        }
+        
+        .speaker-decoration.right {
+            right: -50px;
+            top: 30%;
+            transform: perspective(500px) rotateY(-20deg);
+        }
+        
+        .speaker-decoration::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background: radial-gradient(circle, #444, #222);
+            border-radius: 5px;
+        }
+        
+        .speaker-decoration::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            right: 30px;
+            bottom: 30px;
+            background: radial-gradient(circle, #555, #333);
+            border-radius: 50%;
+        }
+        
+        /* Header con efecto de sonido */
         header {
-            background: linear-gradient(135deg, #333, #000);
-            color: white;
+            background: linear-gradient(135deg, #000, #222);
+            color: var(--color-texto);
             padding: 20px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid var(--color-secundario);
+            box-shadow: 0 0 30px rgba(255, 255, 0, 0.3);
         }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--color-terciario), 
+                var(--color-secundario), 
+                var(--color-terciario), 
+                transparent);
+            animation: headerGlow 3s linear infinite;
+        }
+        
+        @keyframes headerGlow {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
         header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 
+                0 0 10px var(--color-secundario),
+                0 0 20px var(--color-terciario),
+                0 0 30px rgba(255, 255, 255, 0.5);
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        header h1::after {
+            content: '★';
+            position: absolute;
+            right: -25px;
+            top: -15px;
+            font-size: 1.5rem;
+            color: var(--color-secundario);
+            animation: starPulse 2s infinite;
+        }
+        
+        /* Navegación estilo consola de sonido */
+        .nav-link {
+            color: var(--color-texto) !important;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            margin: 0 5px;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--color-secundario);
+            padding: 8px 15px !important;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--color-secundario) !important;
+            background: rgba(255, 255, 0, 0.3) !important;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 255, 0, 0.3);
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 2px solid var(--color-secundario);
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-link:hover::before {
+            opacity: 0.5;
+        }
+        
+        /* Secciones estilo escenario */
+        section {
+            display: none;
+            padding: 60px 0;
+            background: rgba(0, 0, 0, 0.7);
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 
+                0 0 20px rgba(0, 0, 0, 0.8),
+                0 0 40px rgba(255, 255, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 0, 0.2);
+            backdrop-filter: blur(5px);
+        }
+        
+        section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--color-secundario), 
+                var(--color-terciario), 
+                var(--color-secundario), 
+                transparent);
+            opacity: 0.5;
+        }
+        
+        h2 {
             font-size: 2.5rem;
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        .nav-link {
-            color: white !important;
-            font-weight: bold;
-            transition: color 0.3s ease;
+            margin-bottom: 30px;
+            color: var(--color-secundario);
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
             position: relative;
-            z-index: 10;
+            display: inline-block;
+            padding-bottom: 10px;
         }
-        .nav-link:hover {
-            color: #ffc107 !important;
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--color-secundario), 
+                var(--color-terciario), 
+                transparent);
         }
-        section {
-            padding: 60px 0;
-            background-color: white;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        
+        /* Efecto de ecualizador */
+        .equalizer-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 0 20px;
+            opacity: 0.3;
+        }
+        
+        .equalizer-bar {
+            width: 6px;
+            background: linear-gradient(to top, var(--color-secundario), var(--color-terciario));
+            border-radius: 3px 3px 0 0;
+            animation: equalize 1.5s infinite ease-in-out;
+        }
+        
+        @keyframes equalize {
+            0%, 100% { height: 10%; }
+            50% { height: 100%; }
+        }
+        
+        /* Botón de WhatsApp mejorado */
+        .btn-whatsapp {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            text-align: center;
+            font-size: 36px;
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(37, 211, 102, 0.5);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            animation: pulse 2s infinite;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-whatsapp:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(37, 211, 102, 0.7);
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Carrusel mejorado */
+        .carousel {
+            border: 3px solid var(--color-secundario);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 255, 0, 0.3);
+            position: relative;
+        }
+        
+        .carousel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                rgba(255, 255, 0, 0.1) 0%,
+                rgba(255, 0, 0, 0.1) 50%,
+                rgba(255, 255, 0, 0.1) 100%
+            );
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 2px solid var(--color-secundario);
+        }
+        
+        /* Tarjetas de testimonios mejoradas */
+        .testimonial-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--color-secundario);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.1);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-        h2 {
-            font-size: 2rem;
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255, 255, 0, 0.3);
+            border-color: var(--color-terciario);
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 60px;
+            color: rgba(255, 255, 0, 0.1);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        
+        .testimonial-card::after {
+            content: '"';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 60px;
+            color: rgba(255, 255, 0, 0.1);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 3px solid var(--color-secundario);
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
+        }
+        
+        /* Formulario estilo consola */
+        .form-control {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--color-secundario);
+            color: var(--color-texto);
+            border-radius: 5px;
+        }
+        
+        .form-control:focus {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-color: var(--color-terciario);
+            color: var(--color-texto);
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-secundario), var(--color-terciario));
+            border: none;
             font-weight: bold;
-            margin-bottom: 20px;
-            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 10px 25px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(255, 255, 0, 0.3);
+            transition: all 0.3s ease;
         }
-        p {
-            font-size: 1.1rem;
-            color: #555;
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 255, 0, 0.5);
         }
-        .carousel-inner img {
-            height: 400px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
+        
+        /* Footer mejorado */
         footer {
-            background: linear-gradient(135deg, #333, #000);
-            color: white;
+            background: linear-gradient(135deg, #000, #222);
+            color: var(--color-texto);
             padding: 20px 0;
             position: fixed;
             bottom: 0;
             width: 100%;
             z-index: 1000;
+            border-top: 3px solid var(--color-secundario);
+            box-shadow: 0 0 30px rgba(255, 255, 0, 0.3);
         }
+        
         footer p {
             margin: 0;
             font-size: 1rem;
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
         }
-        .btn-whatsapp {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            background-color: #25d366;
-            color: white;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            text-align: center;
-            font-size: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
+        
+        footer a {
+            color: var(--color-secundario);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        footer a:hover {
+            color: var(--color-terciario);
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+        }
+        
+        /* Efecto de sonido visual */
+        .sound-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        .btn-whatsapp:hover {
-            background-color: #128c7e;
-        }
-        .testimonial-card {
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            background-color: #f9f9f9;
-        }
-        .testimonial-card img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-        .promo-banner {
-            background-color: #ffc107;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 20px;
+            opacity: 0.5;
         }
         
-        /* Efectos de estrellas mejorados */
-        .star-effect {
+        .wave-bar {
+            width: 4px;
+            height: 10px;
+            background: var(--color-secundario);
+            margin: 0 2px;
+            border-radius: 2px;
+            animation: wave 1.5s infinite ease-in-out;
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(3); }
+        }
+        
+        /* Efecto de disco giratorio */
+        .vinyl-record {
             position: absolute;
+            right: -50px;
+            bottom: -50px;
             width: 150px;
             height: 150px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23FFD700" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>');
-            background-size: contain;
-            background-repeat: no-repeat;
-            pointer-events: none;
-            z-index: 100;
-            opacity: 0;
-            animation: starPulse 1.5s ease-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: linear-gradient(45deg, #111, #000);
+            border-radius: 50%;
+            border: 5px solid #333;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            z-index: -1;
+            animation: spin 20s linear infinite;
+            opacity: 0.3;
         }
         
-        .star-effect::after {
-            content: "STAR MILLER";
-            position: absolute;
-            color: #FFD700;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
-            font-size: 0;
-            animation: textGrow 1.5s ease-out forwards;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        @keyframes starPulse {
-            0% {
-                transform: scale(0.1) rotate(0deg);
-                opacity: 0.8;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                transform: scale(3) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        @keyframes textGrow {
-            0% {
-                font-size: 0;
-                opacity: 0;
-            }
-            50% {
-                font-size: 16px;
-                opacity: 1;
-            }
-            100% {
-                font-size: 0;
-                opacity: 0;
-            }
-        }
-        
-        /* Efecto de confeti */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background-color: #f00;
-            opacity: 0;
-            z-index: 999;
-            animation: confettiFall 5s linear forwards;
-        }
-        
-        @keyframes confettiFall {
-            0% {
-                transform: translateY(-100vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        /* Efecto de brillo al hacer hover */
-        .nav-link::after {
+        .vinyl-record::before {
             content: '';
             position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: radial-gradient(circle, rgba(255,215,0,0.4) 0%, rgba(255,215,0,0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, var(--color-secundario), var(--color-terciario));
             border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            border: 2px solid #000;
+        }
+        
+        .vinyl-record::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: #000;
+            border-radius: 50%;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Efecto de botones de consola */
+        .console-button {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin: 0 5px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .console-button.red {
+            background: radial-gradient(circle at 30% 30%, #f00, #800);
+        }
+        
+        .console-button.yellow {
+            background: radial-gradient(circle at 30% 30%, var(--color-secundario), #880);
+        }
+        
+        .console-button.green {
+            background: radial-gradient(circle at 30% 30%, #0f0, #080);
+        }
+        
+        /* Efecto de nivel de sonido */
+        .sound-level {
+            height: 10px;
+            background: linear-gradient(90deg, #080, #0f0, var(--color-secundario), #f00);
+            border-radius: 5px;
+            margin: 10px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sound-level::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.3) 0%, 
+                rgba(255, 255, 255, 0) 50%, 
+                rgba(255, 255, 255, 0.3) 100%);
+            animation: levelShine 2s infinite linear;
+        }
+        
+        @keyframes levelShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Efecto de cableado */
+        .cable-decoration {
+            position: absolute;
+            width: 100px;
+            height: 300px;
+            border-left: 3px dashed rgba(255, 255, 0, 0.3);
+            border-right: 3px dashed rgba(255, 255, 0, 0.3);
+            left: 50%;
+            top: -100px;
             z-index: -1;
         }
         
-        .nav-link:hover::after {
-            opacity: 1;
+        /* Efecto ripple para navegación */
+        @keyframes ripple {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .speaker-decoration {
+                display: none;
+            }
+            
+            .vinyl-record {
+                width: 100px;
+                height: 100px;
+                right: -30px;
+                bottom: -30px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Efecto de luces de escenario -->
+    <div class="stage-lights">
+        <div class="light-beam"></div>
+        <div class="light-beam"></div>
+        <div class="light-beam"></div>
+    </div>
+    
+    <!-- Bocinas decorativas -->
+    <div class="speaker-decoration left"></div>
+    <div class="speaker-decoration right"></div>
+    
     <!-- Botón de WhatsApp -->
     <a href="https://wa.me/522381973451" class="btn-whatsapp" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <header class="text-center">
-        <h1 class="animate__animated animate__fadeInDown">Sonido Star Miller</h1>
-        <nav>
-            <ul class="nav justify-content-center">
-                <li class="nav-item"><a class="nav-link interactive" href="#inicio">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link interactive" href="#sobre">Sobre Nosotros</a></li>
-                <li class="nav-item"><a class="nav-link interactive" href="#eventos">Eventos</a></li>
-                <li class="nav-item"><a class="nav-link interactive" href="#musica">Música</a></li>
-                <li class="nav-item"><a class="nav-link interactive" href="#galeria">Galería</a></li>
-                <li class="nav-item"><a class="nav-link interactive" href="#mensajes">Mensajes</a></li>
-                <li class="nav-item"><a class="nav-link interactive" href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <h1 class="animate__animated animate__fadeInDown">SONIDO STAR MILLER</h1>
+            <div class="sound-wave">
+                <div class="wave-bar" style="animation-delay: 0s"></div>
+                <div class="wave-bar" style="animation-delay: 0.1s"></div>
+                <div class="wave-bar" style="animation-delay: 0.2s"></div>
+                <div class="wave-bar" style="animation-delay: 0.3s"></div>
+                <div class="wave-bar" style="animation-delay: 0.4s"></div>
+                <div class="wave-bar" style="animation-delay: 0.5s"></div>
+                <div class="wave-bar" style="animation-delay: 0.6s"></div>
+                <div class="wave-bar" style="animation-delay: 0.7s"></div>
+            </div>
+            <nav>
+                <ul class="nav justify-content-center">
+                    <li class="nav-item"><a class="nav-link interactive active" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link interactive" href="#sobre">Sobre Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link interactive" href="#equipo">Equipo</a></li>
+                    <li class="nav-item"><a class="nav-link interactive" href="#galeria">Galería</a></li>
+                    <li class="nav-item"><a class="nav-link interactive" href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     
     <main class="container mt-4">
         <!-- Inicio -->
-        <section id="inicio" class="animate__animated animate__fadeIn">
-            <h2>Bienvenidos a Sonido Star Miller</h2>
-            <p>Transformamos tus eventos en experiencias inolvidables.</p>
-            <p>En Sonido Star Miller, ubicados en Santiago Nopala, Puebla, nos especializamos en brindar servicios de audio, video e iluminación de alta calidad para todo tipo de eventos. Desde bodas y XV años hasta eventos corporativos, nuestro equipo profesional y tecnología de vanguardia garantizan un espectáculo único. ¡Haz de tu evento algo extraordinario con nosotros!</p>
+        <section id="inicio" class="active">
+            <div class="vinyl-record"></div>
+            <div class="equalizer-container">
+                <div class="equalizer-bar" style="animation-delay: 0s; height: 30%"></div>
+                <div class="equalizer-bar" style="animation-delay: 0.2s; height: 70%"></div>
+                <div class="equalizer-bar" style="animation-delay: 0.4s; height: 40%"></div>
+                <div class="equalizer-bar" style="animation-delay: 0.6s; height: 90%"></div>
+                <div class="equalizer-bar" style="animation-delay: 0.8s; height: 20%"></div>
+                <div class="equalizer-bar" style="animation-delay: 1s; height: 60%"></div>
+                <div class="equalizer-bar" style="animation-delay: 1.2s; height: 30%"></div>
+            </div>
+            <div class="container">
+                <h2>BIENVENIDOS A SONIDO STAR MILLER</h2>
+                <div class="sound-level" style="width: 80%; margin: 20px auto;"></div>
+                <p class="lead">Transformamos tus eventos en experiencias sonideras inolvidables con la mejor tecnología y profesionalismo.</p>
+                <p>En <strong>Sonido Star Miller</strong>, ubicados en Santiago Nopala, Puebla, nos especializamos en brindar servicios de audio profesional, iluminación robótica y video de alta calidad para todo tipo de eventos. Desde bodas y XV años hasta eventos corporativos, nuestro equipo profesional y tecnología de vanguardia garantizan un espectáculo único.</p>
+                <div class="text-center mt-4">
+                    <span class="console-button red"></span>
+                    <span class="console-button yellow"></span>
+                    <span class="console-button green"></span>
+                </div>
+            </div>
         </section>
 
         <!-- Sobre Nosotros -->
-        <section id="sobre" class="animate__animated animate__fadeIn">
-            <h2>Sobre Nosotros</h2>
-            <p>Somos Sonido Star Miller, una empresa con más de X años de experiencia en el mundo del entretenimiento audiovisual. Nos enorgullece ofrecer servicios de calidad en Santiago Nopala, Puebla, y sus alrededores.</p>
-            <h3>Nuestro Equipo</h3>
-            <p>Contamos con equipo de audio profesional de marcas líderes, incluyendo 8 graves y 8 medios, iluminación robótica de última generación y pantallas LED de alta definición. Adaptamos nuestra tecnología a las necesidades de cada evento.</p>
-            <h3>Servicios que Ofrecemos</h3>
-            <ul>
-                <li>Bodas</li>
-                <li>XV años</li>
-                <li>Bautizos</li>
-                <li>Fiestas infantiles</li>
-                <li>Graduaciones</li>
-                <li>Eventos corporativos</li>
-                <li>Divorcios (¡y más!)</li>
-            </ul>
+        <section id="sobre">
+            <div class="cable-decoration"></div>
+            <div class="container">
+                <h2>SOBRE NOSOTROS</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Somos <strong>Sonido Star Miller</strong>, una empresa con más de 15 años de experiencia en el mundo del entretenimiento audiovisual. Nos enorgullece ofrecer servicios de calidad en Santiago Nopala, Puebla, y sus alrededores.</p>
+                        <p>Nuestro equipo está formado por profesionales apasionados por la música y la tecnología, comprometidos a hacer de cada evento una experiencia única.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="sound-level"></div>
+                        <h3>NUESTRA FILOSOFÍA</h3>
+                        <p>Creemos que cada evento merece un sonido impecable, una iluminación espectacular y una atención personalizada que haga la diferencia.</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- Eventos -->
-        <section id="eventos" class="animate__animated animate__fadeIn">
-            <h2>Próximos Eventos</h2>
-            <p>Consulta nuestras fechas disponibles y reserva con anticipación para asegurar tu evento.</p>
-            <div id="calendario"></div>
-        </section>
-
-        <!-- Música -->
-        <section id="musica" class="animate__animated animate__fadeIn">
-            <h2>Nuestra Música</h2>
-            <p>Ofrecemos música para todos los géneros y edades: regional mexicano, pop, rock, electrónica, baladas y más. Personalizamos tu playlist para que tu evento sea único y memorable.</p>
-            <h3>Géneros Destacados</h3>
-            <ul>
-                <li>Regional mexicano</li>
-                <li>Pop y rock</li>
-                <li>Electrónica y dance</li>
-                <li>Baladas y clásicos</li>
-                <li>Música infantil</li>
-            </ul>
+        <!-- Equipo -->
+        <section id="equipo">
+            <div class="container">
+                <h2>NUESTRO EQUIPO TECNOLÓGICO</h2>
+                <div class="sound-level" style="width: 60%; margin: 0 auto 30px;"></div>
+                
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="testimonial-card text-center">
+                            <i class="fas fa-volume-up fa-3x mb-3" style="color: var(--color-secundario);"></i>
+                            <h3>SISTEMA DE AUDIO</h3>
+                            <p>Bocinas profesionales de alta potencia, mezcladoras digitales, micrófonos inalámbricos y procesadores de sonido para una calidad auditiva excepcional.</p>
+                            <div class="sound-level"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="testimonial-card text-center">
+                            <i class="fas fa-lightbulb fa-3x mb-3" style="color: var(--color-secundario);"></i>
+                            <h3>ILUMINACIÓN ROBÓTICA</h3>
+                            <p>Luces inteligentes, láseres, máquinas de humo y efectos especiales que sincronizan con la música para crear ambientes espectaculares.</p>
+                            <div class="sound-level"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="testimonial-card text-center">
+                            <i class="fas fa-video fa-3x mb-3" style="color: var(--color-secundario);"></i>
+                            <h3>VIDEO Y PROYECCIÓN</h3>
+                            <p>Pantallas LED, proyectores de alta definición y sistemas de visualización para mostrar tus videos, fotos o transmisiones en vivo.</p>
+                            <div class="sound-level"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Galería -->
-        <section id="galeria" class="animate__animated animate__fadeIn">
-            <h2>Galería de Imágenes y Videos</h2>
-            <p>Descubre cómo transformamos cada evento en una experiencia única. ¡Mira nuestras fotos y videos!</p>
-            
-            <!-- Galería de imágenes -->
-            <h3>Imágenes</h3>
-            <div id="carouselExample" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="SM.jpg" class="d-block w-100" alt="Imagen 1">
+        <section id="galeria">
+            <div class="container">
+                <h2>GALERÍA DE EVENTOS</h2>
+                <p class="text-center">Algunos momentos capturados de nuestros eventos más recientes</p>
+                
+                <div id="carouselExample" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="ST.jpg" class="d-block w-100" alt="Evento 1">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>XV Años de María</h5>
+                                <p>Iluminación robótica y sonido profesional</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="SM.jpg" class="d-block w-100" alt="Evento 2">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Boda de Ana y Luis</h5>
+                                <p>Sistema de audio para ceremonia y recepción</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="MS.jpg" class="d-block w-100" alt="Evento 3">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Fiesta Corporativa</h5>
+                                <p>Sonido, iluminación y pantallas LED</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                        <img src="ST.jpg" class="d-block w-100" alt="Imagen 2">
+                    <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </a>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-4 mb-4">
+                        <div class="card bg-dark border border-warning">
+                            <img src="MS.jpg" class="card-img-top" alt="Evento 4">
+                            <div class="card-body">
+                                <h5 class="card-title text-warning">Graduación 2023</h5>
+                                <p class="card-text">Sistema completo de audio e iluminación</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                        <img src="MS.jpg" class="d-block w-100" alt="Imagen 3">
+                    <div class="col-md-4 mb-4">
+                        <div class="card bg-dark border border-warning">
+                            <img src="ST.jpg" class="card-img-top" alt="Evento 5">
+                            <div class="card-body">
+                                <h5 class="card-title text-warning">Fiesta Infantil</h5>
+                                <p class="card-text">Música y efectos especiales para niños</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card bg-dark border border-warning">
+                            <img src="SM.jpg" class="card-img-top" alt="Evento 6">
+                            <div class="card-body">
+                                <h5 class="card-title text-warning">Evento Deportivo</h5>
+                                <p class="card-text">Sonido para estadio y pantallas gigantes</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </a>
             </div>
-
             <!-- Galería de videos -->
             <h3>Videos</h3>
             <div class="row">
@@ -346,123 +884,122 @@
             </div>
         </section>
 
-        <!-- Mensajes -->
-        <section id="mensajes" class="animate__animated animate__fadeIn">
-            <h2>Solicita tu Cotización</h2>
-            <p>Llena el formulario y nos pondremos en contacto contigo a la brevedad para planificar tu evento.</p>
-            <form id="formMensaje" action="submit_mensaje.php" method="post">
-                <div class="form-group">
-                    <label for="nombre">Nombre completo:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Correo electrónico:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Teléfono:</label>
-                    <input type="tel" class="form-control" id="telefono" name="telefono" required>
-                </div>
-                <div class="form-group">
-                    <label for="evento">Tipo de evento:</label>
-                    <select class="form-control" id="evento" name="evento" required>
-                        <option value="boda">Boda</option>
-                        <option value="xv">XV años</option>
-                        <option value="bautizo">Bautizo</option>
-                        <option value="fiesta">Fiesta infantil</option>
-                        <option value="graduacion">Graduación</option>
-                        <option value="corporativo">Evento corporativo</option>
-                        <option value="otro">Otro</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="fecha">Fecha del evento:</label>
-                    <input type="date" class="form-control" id="fecha" name="fecha" required>
-                </div>
-                <div class="form-group">
-                    <label for="ubicacion">Ubicación:</label>
-                    <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
-                </div>
-                <div class="form-group">
-                    <label for="mensaje">Mensaje adicional:</label>
-                    <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Enviar</button>
-            </form>
-        </section>
-
         <!-- Contacto -->
-        <section id="contacto" class="animate__animated animate__fadeIn">
-            <h2>¿Listo para tu evento? ¡Contáctanos!</h2>
-            <p>Estamos ubicados en Santiago Nopala, Puebla. Puedes comunicarte con nosotros por teléfono, correo electrónico o a través de nuestras redes sociales.</p>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Información de Contacto</h3>
-                    <p><strong>Dirección:</strong> Calle Libertad #60, Santiago Nopala, Puebla</p>
-                    <p><strong>Teléfono:</strong> 
-                        <a href="tel:2381973451">238 197 3451</a>, 
-                        <a href="tel:2382202136">238 220 2136</a>, 
-                        <a href="tel:2382519320">238 251 9320</a>
-                    </p>
-                    <p><strong>Correo electrónico:</strong> <a href="mailto:marcosgarcia2del2004g@gmail.com">marcosgarcia2del2004g@gmail.com</a></p>
-                    <h3>Redes Sociales</h3>
-                    <a href="https://www.facebook.com/share/18nAW63qB9/" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-facebook"></i> Facebook
-                    </a>
-                    <a href="https://instagram.com/sonidostarmiller" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-instagram"></i> Instagram
-                    </a>
-                </div>
-                <div class="col-md-6">
-                    <h3>Ubicación</h3>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.888835345572!2d-99.1694856845268!3d19.42702074608193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff35f5bd1563%3A0x6c366f0e2de02ff7!2sEl%20%C3%81ngel%20de%20la%20Independencia!5e0!3m2!1ses!2smx!4v1633036787894!5m2!1ses!2smx" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
+        <section id="contacto">
+            <div class="container">
+                <h2>CONTÁCTANOS</h2>
+                <div class="sound-level" style="width: 50%; margin: 0 auto 30px;"></div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3><i class="fas fa-map-marker-alt text-warning"></i> UBICACIÓN</h3>
+                        <p>Calle Libertad #60, Santiago Nopala, Puebla</p>
+                        
+                        <h3 class="mt-4"><i class="fas fa-phone text-warning"></i> TELÉFONOS</h3>
+                        <p>
+                            <a href="tel:2381973451" class="text-warning">238 197 3451</a><br>
+                            <a href="tel:2382202136" class="text-warning">238 220 2136</a><br>
+                            <a href="tel:2382519320" class="text-warning">238 251 9320</a>
+                        </p>
+                        
+                        <h3 class="mt-4"><i class="fas fa-envelope text-warning"></i> CORREO</h3>
+                        <p><a href="mailto:marcosgarcia2del2004g@gmail.com" class="text-warning">marcosgarcia2del2004g@gmail.com</a></p>
+                        
+                        <h3 class="mt-4"><i class="fas fa-share-alt text-warning"></i> REDES SOCIALES</h3>
+                        <a href="https://www.facebook.com/share/18nAW63qB9/" target="_blank" class="btn btn-dark mr-2 mb-2">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </a>
+                        <a href="https://instagram.com/sonidostarmiller" target="_blank" class="btn btn-dark mr-2 mb-2">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Reemplaza la sección del formulario actual con este código -->
+<div class="card bg-dark border border-warning">
+    <div class="card-body">
+        <h3 class="card-title text-warning">SOLICITA TU COTIZACIÓN</h3>
+        <form id="whatsappForm">
+            <div class="form-group">
+                <label for="nombre">Nombre completo *</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
-        </section>
-
-        <!-- Testimonios -->
-        <section id="testimonios" class="animate__animated animate__fadeIn">
-            <h2>Testimonios</h2>
-            <p>Lo que dicen nuestros clientes:</p>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <img src="images/cliente1.jpg" alt="Cliente 1">
-                        <p>"¡Increíble experiencia con Sonido Star Miller! La música y la iluminación fueron perfectas para nuestra boda."</p>
-                        <p><strong>- María González</strong></p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <img src="images/cliente2.jpg" alt="Cliente 2">
-                        <p>"Gracias a Sonido Star Miller, nuestra fiesta de XV años fue un éxito total. ¡Los recomiendo al 100%!"</p>
-                        <p><strong>- Juan Pérez</strong></p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <img src="images/cliente3.jpg" alt="Cliente 3">
-                        <p>"El equipo de Sonido Star Miller es profesional y amable. Hicieron que nuestro evento fuera inolvidable."</p>
-                        <p><strong>- Laura Martínez</strong></p>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono *</label>
+                <input type="tel" class="form-control" id="telefono" name="telefono" required>
             </div>
-        </section>
+            <div class="form-group">
+                <label for="evento">Tipo de evento *</label>
+                <select class="form-control" id="evento" name="evento" required>
+                    <option value="">Selecciona...</option>
+                    <option value="Boda">Boda</option>
+                    <option value="XV Años">XV Años</option>
+                    <option value="Evento Corporativo">Evento Corporativo</option>
+                    <option value="Fiesta Privada">Fiesta Privada</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="mensaje">Detalles del evento *</label>
+                <textarea class="form-control" id="mensaje" name="mensaje" rows="3" required placeholder="Fecha, lugar, número de invitados, etc."></textarea>
+            </div>
+            <button type="submit" class="btn btn-warning btn-block">
+                <i class="fab fa-whatsapp mr-2"></i> ENVIAR POR WHATSAPP
+            </button>
+        </form>
+    </div>
+</div>
 
-        <!-- Promociones -->
-        <section id="promociones" class="animate__animated animate__fadeIn">
-            <h2>Promociones</h2>
-            <div class="promo-banner">
-                <h3>¡Ofertas especiales!</h3>
-                <p>Reserva tu evento en fechas seleccionadas y obtén un 10% de descuento en nuestros servicios.</p>
-                <a href="#contacto" class="btn btn-primary">Contáctanos para más información</a>
+
+<script>
+    document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Datos del formulario
+        const nombre = document.getElementById('nombre').value;
+        const telefonoCliente = document.getElementById('telefono').value;
+        const evento = document.getElementById('evento').value;
+        const mensaje = document.getElementById('mensaje').value;
+        
+        // Tu número en formato internacional (sin +, guiones o espacios)
+        const tuNumeroWhatsApp = '522381973451'; // Código de país +52 y tu número 2382105647
+        
+        // Mensaje estructurado para WhatsApp
+        const textoWhatsApp = 
+            `*NUEVA SOLICITUD DE COTIZACIÓN*%0A%0A` +
+            `*Nombre:* ${nombre}%0A` +
+            `*Teléfono:* ${telefonoCliente}%0A` +
+            `*Evento:* ${evento}%0A` +
+            `*Detalles:*%0A${mensaje.replace(/\n/g, '%0A')}%0A%0A` +
+            `*Enviado desde el sitio web de Sonido Star Miller*`;
+        
+        // Generar enlace de WhatsApp
+        window.open(`https://wa.me/${tuNumeroWhatsApp}?text=${textoWhatsApp}`, '_blank');
+        
+        // Opcional: Resetear formulario después de 2 segundos
+        setTimeout(() => this.reset(), 2000);
+    });
+</script>
+                            
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
     <footer class="text-center">
-        <p>Contacto: <a href="mailto:info@sonidostarmiller.com">info@sonidostarmiller.com</a> | Síguenos en redes sociales</p>
+        <div class="container">
+            <p>© 2025 SONIDO STAR MILLER - Todos los derechos reservados | <a href="#">Políticas de Privacidad</a> | <a href="#">Términos de Servicio</a></p>
+            <div class="sound-wave" style="height: 20px; opacity: 0.3;">
+                <div class="wave-bar" style="animation-delay: 0s; height: 5px;"></div>
+                <div class="wave-bar" style="animation-delay: 0.1s; height: 10px;"></div>
+                <div class="wave-bar" style="animation-delay: 0.2s; height: 15px;"></div>
+                <div class="wave-bar" style="animation-delay: 0.3s; height: 20px;"></div>
+                <div class="wave-bar" style="animation-delay: 0.4s; height: 15px;"></div>
+                <div class="wave-bar" style="animation-delay: 0.5s; height: 10px;"></div>
+                <div class="wave-bar" style="animation-delay: 0.6s; height: 5px;"></div>
+            </div>
+        </div>
     </footer>
 
     <!-- Scripts -->
@@ -472,116 +1009,100 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Ocultar todas las secciones excepto "Inicio"
-            $("section").hide();
-            $("#inicio").show();
-
-            // Función para crear efecto de estrella con texto
-            function createStarEffect(x, y) {
-                const star = document.createElement('div');
-                star.className = 'star-effect';
-                star.style.left = `${x - 75}px`; // Centrar la estrella
-                star.style.top = `${y - 75}px`;
-                document.body.appendChild(star);
-                
-                // Eliminar el elemento después de la animación
-                setTimeout(() => {
-                    star.remove();
-                }, 1500);
-            }
+            // Mostrar solo la sección de inicio al cargar
+            $('#inicio').addClass('active');
             
-            // Función para crear confeti
-            function createConfetti() {
-                const colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff'];
-                for (let i = 0; i < 50; i++) {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = `${Math.random() * 100}vw`;
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.width = `${Math.random() * 10 + 5}px`;
-                    confetti.style.height = `${Math.random() * 10 + 5}px`;
-                    confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
-                    document.body.appendChild(confetti);
-                    
-                    // Eliminar el elemento después de la animación
-                    setTimeout(() => {
-                        confetti.remove();
-                    }, 5000);
-                }
-            }
-
-            // Mostrar la sección correspondiente al hacer clic en los enlaces
-            $('a.interactive').on('click', function(event) {
-                event.preventDefault();
+            // Efecto de navegación entre secciones
+            $('a.interactive').on('click', function(e) {
+                e.preventDefault();
                 const target = $(this).attr('href');
                 
-                // Obtener posición del clic para el efecto
-                const x = event.clientX;
-                const y = event.clientY;
+                // Remover clase active de todos los enlaces
+                $('a.interactive').removeClass('active');
+                // Agregar clase active al enlace clickeado
+                $(this).addClass('active');
                 
-                // Crear efecto de estrella con texto
-                createStarEffect(x, y);
+                // Ocultar todas las secciones
+                $('section').removeClass('active');
                 
-                // Crear confeti para algunas interacciones
-                if (Math.random() > 0.7) {
-                    createConfetti();
-                }
+                // Mostrar solo la sección objetivo
+                $(target).addClass('active');
                 
-                // Ocultar todas las secciones y mostrar la correspondiente
-                $("section").hide();
-                $(target).show().addClass('animate__fadeIn');
-
-                // Renderizar el calendario si la sección de Eventos es visible
-                if (target === "#eventos") {
-                    renderCalendar();
-                }
-                
-                // Scroll suave a la sección
+                // Scroll suave al inicio de la sección
                 $('html, body').animate({
                     scrollTop: $(target).offset().top - 20
                 }, 800);
-            });
-
-            // Efecto de estrella al pasar el mouse sobre los enlaces
-            $('a.interactive').on('mouseenter', function(e) {
-                const x = e.pageX;
-                const y = e.pageY;
-                createStarEffect(x, y);
-            });
-
-            // Función para renderizar el calendario
-            function renderCalendar() {
-                var calendarEl = document.getElementById('calendario');
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth',
-                    events: [
-                        {
-                            title: 'Evento 1',
-                            start: '2023-10-15',
-                            end: '2023-10-16'
-                        },
-                        {
-                            title: 'Evento 2',
-                            start: '2023-11-01',
-                            end: '2023-11-02'
-                        }
-                    ]
+                
+                // Efecto de onda de sonido
+                const ripple = $('<div class="sound-ripple"></div>');
+                $('body').append(ripple);
+                ripple.css({
+                    'left': e.pageX - 50,
+                    'top': e.pageY - 50,
+                    'background': 'radial-gradient(circle, rgba(255,255,0,0.3) 0%, transparent 70%)',
+                    'width': '100px',
+                    'height': '100px',
+                    'position': 'absolute',
+                    'border-radius': '50%',
+                    'pointer-events': 'none',
+                    'z-index': '9999',
+                    'transform': 'scale(0)',
+                    'animation': 'ripple 1s ease-out'
                 });
-                calendar.render();
-            }
-
-            // Animaciones iniciales
-            gsap.from("header", {duration: 1, y: -50, opacity: 0});
-            gsap.from("section", {duration: 1, y: 50, opacity: 0, stagger: 0.3});
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 1000);
+            });
             
-            // Efecto de estrella aleatorio ocasional
+            // Efecto aleatorio de luces
             setInterval(() => {
-                if (Math.random() > 0.9) {
-                    const x = Math.random() * window.innerWidth;
-                    const y = Math.random() * window.innerHeight;
-                    createStarEffect(x, y);
+                if (Math.random() > 0.7) {
+                    const light = $('<div class="random-light"></div>');
+                    $('body').append(light);
+                    light.css({
+                        'left': Math.random() * 100 + '%',
+                        'top': Math.random() * 100 + '%',
+                        'background': `radial-gradient(circle, rgba(${
+                            Math.floor(Math.random() * 255)
+                        },${
+                            Math.floor(Math.random() * 255)
+                        },${
+                            Math.floor(Math.random() * 255)
+                        },0.3) 0%, transparent 70%)`,
+                        'width': '200px',
+                        'height': '200px',
+                        'position': 'absolute',
+                        'border-radius': '50%',
+                        'pointer-events': 'none',
+                        'z-index': '-1',
+                        'filter': 'blur(20px)',
+                        'animation': 'fadeOut 2s ease-out'
+                    });
+                    
+                    setTimeout(() => {
+                        light.remove();
+                    }, 2000);
                 }
-            }, 3000);
+            }, 1000);
+            
+            // Efecto de botones de consola
+            $('.console-button').hover(
+                function() {
+                    $(this).css('box-shadow', '0 0 10px rgba(255, 255, 255, 0.8)');
+                },
+                function() {
+                    $(this).css('box-shadow', 'inset 0 0 5px rgba(0, 0, 0, 0.5)');
+                }
+            );
+            
+            // Animación de niveles de sonido aleatorios
+            setInterval(() => {
+                $('.sound-level').each(function() {
+                    const newWidth = Math.floor(Math.random() * 30) + 70;
+                    $(this).css('width', newWidth + '%');
+                });
+            }, 2000);
         });
     </script>
 </body>
